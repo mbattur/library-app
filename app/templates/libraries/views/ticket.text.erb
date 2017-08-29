@@ -1,0 +1,54 @@
+****************** CHOWLY ******************
+
+
+-------------  Restaurant Info -------------
+
+<%= @platform["name"] %> <%= @info["service-type"] %>
+Name: <%= @restaurant["restaurant-name"] %>
+Order id: <%= @info["order-id"] %>
+Created at: <%= @info["scheduled-dt"] %>
+
+--------------  Customer Info --------------
+
+Name: <%= @customer["name"] %>
+Phone: <%= @customer["phone"] %>
+Address 1: <%= @customer["address1"] %>
+Address 2: <%= @customer["address2"] %>
+City: <%= @customer["city"] %>
+State: <%= @customer["state"] %>
+Zip: <%= @customer["zip"] %>
+Note: <%= @customer["special-instructions"] %>
+
+---------------- Order Info ----------------
+<% @items.each do |item| %>
+Id: <%= item["id"] %>
+Name: <%= item["menu-item-name"] %>
+Quantity: <%= item["quantity"] %>
+Price: <%= item["price"] %>
+Note: <%= item["special-instructions"] %>
+Modifiers:
+<% if item["menu-choices-hash"].present? %>
+  <% mods = item["menu-choices-hash"] %>
+  <% mods.each_pair do |key, value| %>
+    <% if key.present? %>
+    - <%= key %>
+    <% end %>
+    <% value.each do |mod| %>
+      - <%= mod["name"]%>: <%= mod["price"] %>
+    <% end %>
+  <% end %>
+<% elsif item["menu-choices"].present? %>
+  - <%= item["menu-choices"] %>
+<% end %>
+<% end %>
+--------------- Payment Info ---------------
+
+Subtotal: <%= @info["subtotal"] %>
+Tax: <%= @info["sales-tax"] %>
+Tip: <%= @info["tip"] %>
+Total: <%= @info["total"] %>
+Payment type: <%= @info["payment-type"] %>
+Service type: <%= @info["service-type"] %>
+
+
+******** Thank you for using Chowly ********
